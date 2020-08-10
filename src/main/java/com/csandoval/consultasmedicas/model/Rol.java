@@ -9,15 +9,18 @@ import javax.persistence.Table;
 
 @Table
 @Entity
-public class Specialty
+public class Rol
 {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
-	@Column(nullable = false, length = 50)
+	
+	@Column(name = "name", nullable = false, length = 50)
 	private String name;
+	
+	@Column(name = "display_name", nullable = false, length = 70)
+	private String display_name;
 
 	public Integer getId()
 	{
@@ -39,5 +42,15 @@ public class Specialty
 		this.name = name;
 	}
 
+	public String getDisplay_name()
+	{
+		return display_name;
+	}
+
+	public void setDisplay_name(String display_name)
+	{
+		this.display_name = display_name;
+	}
+	
 	
 }

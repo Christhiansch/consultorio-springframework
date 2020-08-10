@@ -3,11 +3,14 @@ package com.csandoval.consultasmedicas.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
+//import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+//import javax.persistence.JoinColumn;
+//import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Table
@@ -19,20 +22,20 @@ public class Doctor
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(nullable = false, length = 70)
+	@Column(name ="first_name", nullable = false, length = 70)
 	private String firstName;
 
-	@Column(nullable = false, length = 70)
+	@Column(name = "last_name", nullable = false, length = 70)
 	private String lastName;
 
-	@Column(nullable = false, length = 11)
+	@Column(name = "dni", nullable = false, length = 11)
 	private String DNI;
 
-	@Column(nullable = false, length = 11)
+	@Column(name = "medical_code", nullable = false, length = 11)
 	private String medicalCode;
 	
 	@ManyToOne
-	@JoinColumn(name = "id", nullable = false, foreignKey = @ForeignKey(name = "FK_doctor_specialty"))
+	@JoinColumn(name = "specialty_id", nullable = false, foreignKey = @ForeignKey(name = "FK_doctor_specialty"))
 	private Specialty specialty;
 
 	public Integer getId()
@@ -94,5 +97,7 @@ public class Doctor
 	{
 		this.specialty = specialty;
 	}
+	
+	
 	
 }
