@@ -1,4 +1,4 @@
-package com.csandoval.consultasmedicas.model;
+package com.csandoval.consultasmedicas.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,8 +13,8 @@ import javax.persistence.ManyToOne;
 //import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Table
 @Entity
+@Table(name = "doctors")
 public class Doctor
 {
 

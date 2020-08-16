@@ -1,4 +1,4 @@
-package com.csandoval.consultasmedicas.model;
+package com.csandoval.consultasmedicas.domain;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,7 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "medical_consultation")
+@Table(name = "medical_consultations")
 public class MedicalConsultation
 {
 

@@ -1,4 +1,4 @@
-package com.csandoval.consultasmedicas.model;
+package com.csandoval.consultasmedicas.domain;
 
 import java.util.List;
 
@@ -13,8 +13,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-@Table
 @Entity
+@Table(name = "menus")
 public class Menu
 {
 

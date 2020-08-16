@@ -1,10 +1,11 @@
-package com.csandoval.consultasmedicas.model;
+package com.csandoval.consultasmedicas.domain;
 
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,27 +14,33 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+
+
 @Entity
-@Table
+@Table(name = "users")
 public class User
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@Column(name = "username", nullable = false, length = 50)
 	private String username;
-	
+
 	@Column(name = "password", nullable = false, length = 100)
 	private String password;
-	
+
+	@Column(name = "email", nullable = false, length = 100)
+	private String email;
+
 	@Column(name = "state", nullable = false)
 	private boolean state;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "user_rol"
-	, joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id")
-	, inverseJoinColumns = @JoinColumn(name = "rol_id", referencedColumnName = "id"))
+	
+	@JoinTable(name = "user_rol"	
+	, joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "user_rol"))
+	, inverseJoinColumns = @JoinColumn(name = "rol_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "rol_user")))
 	private List<Rol> roles;
 
 	public Integer getId()
@@ -85,6 +92,5 @@ public class User
 	{
 		this.roles = roles;
 	}
-	
-	
+
 }

@@ -1,4 +1,4 @@
-package com.csandoval.consultasmedicas.model;
+package com.csandoval.consultasmedicas.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,8 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Table
 @Entity
+@Table(name = "roles")
 public class Rol
 {
 
