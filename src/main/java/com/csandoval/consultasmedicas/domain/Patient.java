@@ -26,6 +26,11 @@ public class Patient
 
 	@Column(nullable = false, length = 11)
 	private String numberClinicalHistory;
+
+	public Patient()
+	{
+		
+	}
 	
 	public Patient(String firstName, String lastName, String dNI, String numberClinicalHistory)
 	{
@@ -85,5 +90,14 @@ public class Patient
 	{
 		this.numberClinicalHistory = numberClinicalHistory;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "Patient [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", DNI=" + DNI
+				+ ", numberClinicalHistory=" + numberClinicalHistory + "]";
+	}
+	
+	
 
 }
