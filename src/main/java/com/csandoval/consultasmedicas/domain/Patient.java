@@ -26,6 +26,15 @@ public class Patient
 
 	@Column(nullable = false, length = 11)
 	private String numberClinicalHistory;
+	
+	public Patient(String firstName, String lastName, String dNI, String numberClinicalHistory)
+	{
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		DNI = dNI;
+		this.numberClinicalHistory = numberClinicalHistory;
+	}
 
 	public Integer getId()
 	{
