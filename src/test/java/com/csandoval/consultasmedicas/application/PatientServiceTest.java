@@ -10,7 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.util.Assert;
 
-import com.csandoval.consultasmedicas.domain.Patient;
+import com.csandoval.consultorio.patient.application.IPatientService;
+import com.csandoval.consultorio.patient.domain.Patient;
 import com.github.javafaker.Faker;
 
 @SpringBootTest
