@@ -1,4 +1,4 @@
-package com.csandoval.consultorio.medical.domain;
+package com.csandoval.consultorio.consultation.domain;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,8 +19,8 @@ import com.csandoval.consultorio.doctor.domain.Doctor;
 import com.csandoval.consultorio.patient.domain.Patient;
 
 @Entity
-@Table(name = "medical_consultations")
-public class MedicalConsultation
+@Table(name = "consultations")
+public class Consultation
 {
 
 	@Id
@@ -31,15 +31,32 @@ public class MedicalConsultation
 	private LocalDateTime consultationDate;
 
 	@ManyToOne
-	@JoinColumn(name = "doctor_id", nullable = false, foreignKey = @ForeignKey(name = "FK_medicalconsultation_doctor"))
+	@JoinColumn(name = "doctor_id", nullable = false, foreignKey = @ForeignKey(name = "FK_consultation_doctor"))
 	private Doctor doctor;
 
 	@ManyToOne
-	@JoinColumn(name = "patient_id", nullable = false, foreignKey = @ForeignKey(name = "FK_medicalconsultation_patient"))
+	@JoinColumn(name = "patient_id", nullable = false, foreignKey = @ForeignKey(name = "FK_consultation_patient"))
 	private Patient patient;
 	
-	@OneToMany(mappedBy = "consultation", cascade = {CascadeType.ALL}, orphanRemoval = true)
+	@OneToMany(mappedBy = "consultations", cascade = {CascadeType.ALL}, orphanRemoval = true)
 	private List<DetailConsultation> detailConsultation;
+	
+	public Consultation()
+	{
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Consultation(LocalDateTime consultationDate, Doctor doctor, Patient patient, List<DetailConsultation> detailConsultation)
+	{
+		super();
+		this.consultationDate = consultationDate;
+		this.doctor = doctor;
+		this.patient = patient;
+		this.detailConsultation = detailConsultation;
+	}
+
+
 
 	public Integer getId()
 	{
@@ -64,6 +81,16 @@ public class MedicalConsultation
 	public Doctor getDoctor()
 	{
 		return doctor;
+	}
+
+	public List<DetailConsultation> getDetailConsultation()
+	{
+		return detailConsultation;
+	}
+
+	public void setDetailConsultation(List<DetailConsultation> detailConsultation)
+	{
+		this.detailConsultation = detailConsultation;
 	}
 
 	public void setDoctor(Doctor doctor)

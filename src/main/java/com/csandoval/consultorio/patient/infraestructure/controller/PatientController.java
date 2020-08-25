@@ -65,27 +65,44 @@ public class PatientController
 	}
 
 	@PostMapping("/store")
-	public String store(Patient entity) throws Exception
+	public String store(ModelMap model, Patient entity)
 	{
 		String page = "";
 		entity.setNumberClinicalHistory(faker.code().isbn10());
-		Patient patient = patientService.create(entity);
-
-		if (patient != null)
+		try
 		{
+			Patient patient = patientService.create(entity);
+			model.put("patient", patient);
 			page = "redirect:/patient";
-		} 
-		else
+		} catch (Exception e)
 		{
-			page = "patient/create";
+			model.put("patient", entity);
+			page = "redirect:/patient/create";
+			e.printStackTrace();
 		}
+
+		
 		return page;
 	}
 	
 	@PostMapping("/update")
-	public String update()
+	public String update(ModelMap model, Patient entity)
 	{
-		return "";
+		String page = "";
+		
+		try
+		{
+			Patient patient = patientService.edit(entity);
+			model.put("patient", patient);
+			page = "redirect:/patient";
+		} catch (Exception e)
+		{
+			model.put("patient", entity);
+			page = "redirect:/patient/edit/{" + entity.getId() + "}";
+			e.printStackTrace();
+		}
+		
+		return page;
 	}
 
 	@PostMapping("/delete/{id}")

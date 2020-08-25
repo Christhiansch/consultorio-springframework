@@ -53,7 +53,7 @@ public class PatientServiceTest
 	@Test
 	public void editPatientById() throws Exception
 	{
-		int id = data.number().numberBetween(1, 31);
+		int id = data.number().numberBetween(1, totalPatient());
 		Patient patient = patientService.findById(id);
 		
 		Assert.isTrue(patient != null, "Result: " + patient.toString());
@@ -71,11 +71,15 @@ public class PatientServiceTest
 	@Test
 	public void deletePatientById() throws Exception
 	{
-		int id = data.number().numberBetween(1, 31);
+		int id = data.number().numberBetween(1, totalPatient());
 		patientService.delete(id);
 		
 		Patient patient = patientService.findById(id);
-		Assert.isTrue(patient == null, "Delete: Paciente no existe");
-		
+		Assert.isTrue(patient == null, "Delete: Paciente no existe");		
+	}
+	
+	public int totalPatient() throws Exception
+	{
+		return patientService.listAll().size();
 	}
 }

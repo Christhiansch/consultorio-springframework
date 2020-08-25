@@ -1,8 +1,8 @@
-package com.csandoval.consultorio.crud.application;
+package com.csandoval.consultorio.web.application;
 
 import java.util.List;
 
-import com.csandoval.consultorio.crud.repository.IGenericRepository;
+import com.csandoval.consultorio.web.infraestructure.repository.IGenericRepository;
 
 public abstract class CrudImpl<T, V> implements ICrud<T, V>
 {

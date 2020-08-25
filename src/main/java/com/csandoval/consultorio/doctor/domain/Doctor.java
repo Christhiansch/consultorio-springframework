@@ -40,6 +40,21 @@ public class Doctor
 	@JoinColumn(name = "specialty_id", nullable = false, foreignKey = @ForeignKey(name = "FK_doctor_specialty"))
 	private Specialty specialty;
 
+	public Doctor()
+	{
+		super();
+	}
+
+	public Doctor(String firstName, String lastName, String dNI, String medicalCode, Specialty specialty)
+	{
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		DNI = dNI;
+		this.medicalCode = medicalCode;
+		this.specialty = specialty;
+	}
+
 	public Integer getId()
 	{
 		return id;

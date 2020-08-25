@@ -1,10 +1,10 @@
-package com.csandoval;
+package com.csandoval.consultorio.web.infraestructure.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class InicioController
+public class HomeController
 {
 
 	@RequestMapping({"/", "/login", "/inicio"})

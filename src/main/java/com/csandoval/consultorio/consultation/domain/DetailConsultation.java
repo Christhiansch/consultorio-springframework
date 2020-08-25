@@ -1,4 +1,4 @@
-package com.csandoval.consultorio.medical.domain;
+package com.csandoval.consultorio.consultation.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,13 +21,20 @@ public class DetailConsultation
 
 	@ManyToOne
 	@JoinColumn(name = "consultation_id", nullable = false, foreignKey = @ForeignKey(name = "FK_detail_consultation"))
-	private MedicalConsultation consultation;
+	private Consultation consultations;
 
 	@Column
 	private String diagnostic;
 
 	@Column
 	private String treatment;
+	
+	public DetailConsultation(String diagnostic, String treatment)
+	{
+		super();
+		this.diagnostic = diagnostic;
+		this.treatment = treatment;
+	}
 
 	public Integer getId()
 	{
@@ -39,14 +46,14 @@ public class DetailConsultation
 		this.id = id;
 	}
 
-	public MedicalConsultation getConsultation()
+	public Consultation getConsultations()
 	{
-		return consultation;
+		return consultations;
 	}
 
-	public void setConsultation(MedicalConsultation consultation)
+	public void setConsultation(Consultation consultations)
 	{
-		this.consultation = consultation;
+		this.consultations = consultations;
 	}
 
 	public String getDiagnostic()

@@ -1,4 +1,4 @@
-package com.csandoval.consultorio.crud.application;
+package com.csandoval.consultorio.web.application;
 
 import java.util.List;
 

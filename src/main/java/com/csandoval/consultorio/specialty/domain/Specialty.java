@@ -18,6 +18,17 @@ public class Specialty
 
 	@Column(nullable = false, length = 50)
 	private String name;
+	
+	public Specialty()
+	{
+		super();	
+	}
+
+	public Specialty(String name)
+	{
+		super();
+		this.name = name;
+	}
 
 	public Integer getId()
 	{

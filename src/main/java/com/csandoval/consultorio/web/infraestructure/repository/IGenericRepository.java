@@ -1,4 +1,4 @@
-package com.csandoval.consultorio.crud.repository;
+package com.csandoval.consultorio.web.infraestructure.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
