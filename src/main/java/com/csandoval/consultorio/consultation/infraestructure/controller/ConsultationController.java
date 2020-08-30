@@ -2,6 +2,7 @@ package com.csandoval.consultorio.consultation.infraestructure.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,25 +29,38 @@ public class ConsultationController
 	{
 		return "consultation";
 	}
-
-	@GetMapping("/")
-	public String index()
+	
+	@ModelAttribute("menu")
+	public String menu()
 	{
-		return "";
+		return "consulta";
+	}
+
+	@GetMapping("/histories")
+	public String index(ModelMap model) throws Exception
+	{
+		model.put("patients", patientService.listAll());
+		return "consultations/index";
 	}
 	
 	@GetMapping("/create")
-	public String create(@PathVariable Integer id)
+	public String create(ModelMap model)
 	{
 		try
 		{
-			Patient patient = patientService.findById(id);
+//			model.put("patient", new Patient());
 		} catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "form";
+		return "consultations/form";
+	}
+	
+	@GetMapping("/report/{id}")
+	public String downloadClinicalHistory(@PathVariable Integer id)
+	{
+		return "redirect:consultations/index";
 	}
 	
 	@GetMapping("/edit/{id}")

@@ -22,4 +22,10 @@ public class PatientServiceImpl extends CrudImpl<Patient, Integer> implements IP
 		return patientRepository;
 	}
 
+	@Override
+	public Patient findByDniOrFirstname(String dni, String firstName)
+	{
+		return patientRepository.findByDNIOrFirstName(dni, firstName);
+	}
+
 }

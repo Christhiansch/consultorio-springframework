@@ -38,57 +38,39 @@
   				<!-- Page Heading -->  				
   				<div class="card shadow mb-4">
 	  				<div class="card-header py-3">
-	  					<h6 class="m-0 font-weight-bold text-primary">Formulario Registro de Paciente</h6>
+	  					<h6 class="m-0 font-weight-bold text-primary">Modulo para Descargar Historias Clinicas</h6>
 	  				</div>
+
 	  				<div class="card-body">
-	  					<form th:method="post" th:action="@{/patients/store}" th:object="${patient}">          			
-		          			<div class="form-group row">
-		          				<div class="col-6">
-		          					<div class="row">
-		          						<label class="form-label">Nombres:</label>
-		          						<input 
-		          							type="text" 
-		          							class="form-control" 
-		          							th:field="${patient.firstName}"  />
-		          					</div>
-		          				</div>
-		          				<div class="col-6">
-		          					<div class="row">
-		          						<label class="form-label">Apellidos:</label>
-		          						<input 
-		          							type="text" 
-		          							class="form-control" 
-		          							th:field="${patient.lastName}"  />
-		          					</div>
-		          				</div>
-		          			</div>		          			
-		          			<div class="form-group row">
-		          				<div class="col-6">
-		          					<div class="row">
-		          						<label class="form-label">DNI:</label>
-		          						<input 
-		          							type="text" 
-		          							class="form-control" 
-		          							th:field="${patient.DNI}"  />
-		          					</div>
-		          				</div>
-		          				<div class="col-6">
-		          					<div class="row">
-		          						<label class="form-label">NRO. HISTORIA CLIN.:</label>
-		          						<input 
-		          							type="text" 
-		          							class="form-control" 
-		          							th:field="${patient.numberClinicalHistory}"/>
-		          					</div>
-		          				</div>
-		          			</div>		          			
-		          			<div class="form-group row">
-		          				<div class="col-6">
-		          					<button type="submit" class="btn btn-primary btn-lg">Registrar</button>
-		          					<a th:href="@{/patients}" class="btn btn-danger btn-lg">Cancelar</a>
-		          				</div>
-		          			</div>
-		          		</form>
+	  					<div class="row form-group">
+  							<div class=" col-6">
+  								<div class="row">
+  									<input type="text" class="form-control col-6" placeholder="Buscar al Paciente por DNI o Nombres">
+			  						<a th:href="@{/patients/search}" class="btn btn-info">Buscar Paciente</a>
+  								</div>			  							  						
+		  					</div>  							
+  						</div>
+	  					<br>
+	  					<table class="table table-striped">
+	  						<thead class="thead-dark">
+	  							<tr>
+	  								<th>NRO</th>
+	  								<th>DNI</th>
+	  								<th>NOMBRES Y APELLIDOS</th>
+	  								<th>ACCIONES</th>
+	  							</tr>
+	  						</thead>
+	  						<tbody>
+	  							<tr th:each="patient : ${patients}">
+	  								<td th:text="${patient.id}"></td>
+	  								<td th:text="${patient.DNI}"></td>
+	  								<td th:text="${patient.firstName} + ' ' + ${patient.lastName}"></td>
+	  								<td>
+	  									<a th:href="@{/consultations/report/{id}(id=${patient.id})}" class="btn btn-success">Descargar</a>
+	  								</td>
+	  							</tr>
+	  						</tbody>
+	  					</table>
 	  				</div>
 	  			</div>
   			</div>

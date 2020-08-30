@@ -5,5 +5,5 @@ import com.csandoval.consultorio.web.application.ICrud;
 
 public interface IPatientService extends ICrud<Patient, Integer>
 {
-
+	Patient findByDniOrFirstname(String dni, String firstname);
 }

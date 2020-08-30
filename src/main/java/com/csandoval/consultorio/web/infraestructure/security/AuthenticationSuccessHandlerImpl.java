@@ -55,7 +55,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 			
 			if(Roles.DOCTOR == Roles.valueOf(authority.getAuthority()))
 			{
-				url = "/home";
+				url = "/consultations/create";
 				break;
 			}
 		}

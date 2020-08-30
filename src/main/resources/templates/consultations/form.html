@@ -38,68 +38,18 @@
   				<!-- Page Heading -->  				
   				<div class="card shadow mb-4">
 	  				<div class="card-header py-3">
-	  					<h6 class="m-0 font-weight-bold text-primary">Formulario Registro de Doctor</h6>
+	  					<h6 class="m-0 font-weight-bold text-primary">Formulario Registro de Consulta</h6>
 	  				</div>
+
 	  				<div class="card-body">
-	  					<form th:method="post" th:action="@{/doctors/store}" th:object="${doctor}">
-		          			<div class="form-group row">
-		          				<div class="col-6">
-		          					<div class="row">
-		          						<label class="form-label">DNI:</label>
-		          						<input 
-		          							type="text" 
-		          							class="form-control" 
-		          							th:field="${doctor.DNI}"  />
-		          					</div>
-		          				</div>
-		          				<div class="col-6">
-		          					<div class="row">
-		          						<label class="form-label">CODIGO MEDICO:</label>
-		          						<input 
-		          							type="text" 
-		          							class="form-control" 
-		          							th:field="${doctor.medicalCode}" />
-		          					</div>
-		          				</div>
-		          			</div>		
-		          			<div class="form-group row">
-		          				<div class="col-4">
-		          					<div class="row">
-		          						<label class="form-label">NOMBRES:</label>
-		          						<input 
-		          							type="text" 
-		          							class="form-control" 
-		          							th:field="${doctor.firstName}"  />
-		          					</div>
-		          				</div>
-		          				<div class="col-4">
-		          					<div class="row">
-		          						<label class="form-label">APELLIDOS:</label>
-		          						<input 
-		          							type="text" 
-		          							class="form-control" 
-		          							th:field="${doctor.lastName}"  />
-		          					</div>
-		          				</div>
-		          				<div class="col-4">
-		          					<div class="row">
-		          						<label class="form-label">ESPECIALIDAD:</label>
-		          						<select th:field="${doctor.specialty}" class="form-control">
-		          							<option 
-		          								th:each="specialty : ${specialties}" 
-		          								th:value="${specialty.id}" 
-		          								th:text="${specialty.name}"></option>
-		          						</select>
-		          					</div>
-		          				</div>
-		          			</div>          			
-		          			<div class="form-group row">
-		          				<div class="col-6">
-		          					<button type="submit" class="btn btn-primary btn-lg">Registrar</button>
-		          					<a th:href="@{/doctor}" class="btn btn-danger btn-lg">Cancelar</a>
-		          				</div>
-		          			</div>
-		          		</form>
+	  					<div class="row form-group">
+  							<div class=" col-6">
+  								<div class="row">
+  									<input type="text" class="form-control col-6" placeholder="Buscar al Paciente por DNI o Nombres">
+			  						<a th:href="@{/patients/search}" class="btn btn-info">Buscar Paciente</a>
+  								</div>			  							  						
+		  					</div>  							
+  						</div>
 	  				</div>
 	  			</div>
   			</div>

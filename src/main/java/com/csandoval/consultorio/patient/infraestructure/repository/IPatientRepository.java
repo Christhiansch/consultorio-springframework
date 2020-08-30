@@ -5,5 +5,5 @@ import com.csandoval.consultorio.web.infraestructure.repository.IGenericReposito
 
 public interface IPatientRepository extends IGenericRepository<Patient, Integer>
 {
-
+	Patient findByDNIOrFirstName(String dni, String firstName);
 }

@@ -7,8 +7,6 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.csandoval.consultorio.patient.application.IPatientService;
 import com.csandoval.consultorio.patient.domain.Patient;
@@ -27,6 +26,9 @@ public class PatientController
 
 	@Autowired
 	private IPatientService patientService;
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(PatientController.class);
+
 
 	@ModelAttribute("modulo")
 	public String modulo()
@@ -119,5 +121,16 @@ public class PatientController
 //		return ResponseEntity.ok().body("message: " + response);
 		patientService.delete(id);
 		return "redirect:/patients";
+	}
+	
+	@GetMapping("/search")
+	public String searchPatient(
+			@RequestParam(name="dni", required=false) String dni, 
+			@RequestParam(name="firstname", required=false) String firstname)
+	{
+		Patient patient = patientService.findByDniOrFirstname(dni, firstname);
+		LOGGER.info("Patient: " + patient.getDNI());
+		
+		return "consultation/form";
 	}
 }
