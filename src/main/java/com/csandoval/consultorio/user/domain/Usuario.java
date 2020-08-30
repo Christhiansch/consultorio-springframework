@@ -1,17 +1,13 @@
 package com.csandoval.consultorio.user.domain;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.csandoval.consultorio.rol.domain.Rol;
@@ -20,7 +16,7 @@ import com.csandoval.consultorio.rol.domain.Rol;
 
 @Entity
 @Table(name = "users")
-public class User
+public class Usuario
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,13 +33,10 @@ public class User
 
 	@Column(name = "state", nullable = false)
 	private boolean state;
-
-	@ManyToMany(fetch = FetchType.EAGER)
 	
-	@JoinTable(name = "user_rol"	
-	, joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "user_rol"))
-	, inverseJoinColumns = @JoinColumn(name = "rol_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "rol_user")))
-	private List<Rol> roles;
+	@ManyToOne
+	@JoinColumn(name = "role_id", nullable = false, foreignKey = @ForeignKey(name = "FK_usuario_rol"))
+	private Rol role;
 
 	public Integer getId()
 	{
@@ -95,14 +88,17 @@ public class User
 		this.state = state;
 	}
 
-	public List<Rol> getRoles()
+	public Rol getRole()
 	{
-		return roles;
+		return role;
 	}
 
-	public void setRoles(List<Rol> roles)
+	public void setRole(Rol role)
 	{
-		this.roles = roles;
+		this.role = role;
 	}
+	
+	
+	
 
 }
