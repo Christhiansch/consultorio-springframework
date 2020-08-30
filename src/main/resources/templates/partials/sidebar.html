@@ -28,7 +28,10 @@
 	<div class="sidebar-heading">Menu</div>
 
 	<!-- Nav Item - Mantenimiento Collapse Menu -->
-	<li th:classappend="${menu == 'matenimiento' ? 'active' : ''}" class="nav-item">
+	<li 
+		sec:authorize="hasAuthority('ADMIN')"
+		th:classappend="${menu == 'matenimiento' ? 'active' : ''}" 
+		class="nav-item">
 		<a class="nav-link collapsed" href="#"
 		   data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
 		   aria-controls="collapseTwo">
@@ -45,7 +48,10 @@
 	</li>
 
 	<!-- Nav Item - Consulta Medica Collapse Menu -->
-	<li th:classappend="${menu == 'consulta' ? 'active' : ''}" class="nav-item">
+	<li 
+		sec:authorize="hasAuthority('DOCTOR')"
+		th:classappend="${menu == 'consulta' ? 'active' : ''}" 
+		class="nav-item">
 		<a class="nav-link collapsed" href="#"
 		   data-toggle="collapse" data-target="#collapseMedical"
 		   aria-expanded="true" aria-controls="collapseMedical">
@@ -70,8 +76,8 @@
 		<div id="collapseReports" class="collapse" aria-labelledby="headingReports" data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
 				<h6 class="collapse-header">Operaciones:</h6>
-				<a class="collapse-item" href="utilities-color.html">Historias Clinicas</a>
-				<a class="collapse-item" href="utilities-border.html">Medicos por Especialidad</a>
+				<a sec:authorize="hasAuthority('DOCTOR')" class="collapse-item" href="utilities-color.html">Historias Clinicas</a>
+				<a sec:authorize="hasAuthority('ADMIN')" class="collapse-item" href="utilities-border.html">Medicos por Especialidad</a>
 			</div>
 		</div>
 	</li>
