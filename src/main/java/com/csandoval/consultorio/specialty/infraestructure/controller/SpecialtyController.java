@@ -1,6 +1,8 @@
 package com.csandoval.consultorio.specialty.infraestructure.controller;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +17,7 @@ import com.csandoval.consultorio.specialty.application.ISpecialtyService;
 import com.csandoval.consultorio.specialty.domain.Specialty;
 
 @Controller
-@RequestMapping("/specialty")
+@RequestMapping("/specialties")
 public class SpecialtyController
 {
 
@@ -28,19 +30,27 @@ public class SpecialtyController
 		return "specialty";
 	}
 	
+	@ModelAttribute("menu")
+	public String menu()
+	{
+		return "mantenimiento";
+	}
+	
 	@GetMapping("")
 	public String index(ModelMap model) throws Exception
 	{
-		List<Specialty> specialties = specialtyService.listAll();
+		List<Specialty> specialties = specialtyService.listAll().stream()
+				.sorted(Comparator.comparingInt(Specialty::getId))
+				.collect(Collectors.toList());
 		model.put("specialties", specialties);
-		return "specialty/index";
+		return "specialties/index";
 	}
 	
 	@GetMapping("/create")
 	public String create(ModelMap model)
 	{
 		model.put("specialty", new Specialty());
-		return "specialty/form";
+		return "specialties/form";
 	}
 	
 	@GetMapping("/edit/{id}")
@@ -48,7 +58,7 @@ public class SpecialtyController
 	{
 		Specialty specialty = specialtyService.findById(id);
 		model.put("specialty", specialty);
-		return "specialty/form";
+		return "specialties/form-update";
 	}
 	
 	@PostMapping("/store")
@@ -58,27 +68,37 @@ public class SpecialtyController
 		Specialty specialty = specialtyService.create(entity);
 		if(specialty != null)
 		{
-			page = "redirect:/specialty";
+			page = "redirect:/specialties";
 		}
 		else
 		{
 			model.put("specialty", entity);
-			page = "specialty/form";			
+			page = "specialties/form";			
 		}
 		return page;
 	}
 	
-	@PostMapping("/update")
-	public String update(ModelMap model, Specialty entity)
+	@PostMapping("/update/{id}")
+	public String update(ModelMap model, @PathVariable Integer id, Specialty entity)
 	{
-		return "";
+		String page = "";
+		try
+		{
+			specialtyService.edit(entity);
+			page = "redirect:/specialties";
+		} catch (Exception e)
+		{
+			page = "redirect:/specialties/edit/" + entity.getId() ;
+			e.printStackTrace();
+		}
+		return page;
 	}
 	
-	@PostMapping("/delete")
+	@PostMapping("/delete/{id}")
 	public String delete(@PathVariable Integer id) throws Exception
 	{
 		specialtyService.delete(id);
-		return "redirect:/specialty";
+		return "redirect:/specialties";
 	}
 	
 }

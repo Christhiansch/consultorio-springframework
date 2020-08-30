@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +41,7 @@ public class ConsultationServiceTest
 	private static final Logger LOGGER = LoggerFactory.getLogger(PatientServiceTest.class);
 	
 	@Test
+	@Disabled
 	public void createConsultation()
 	{
 		LocalDateTime consultationDate = LocalDateTime.now();
@@ -71,14 +73,25 @@ public class ConsultationServiceTest
 			// TODO: handle exception
 		}
 		
-		
-		
 	}
 	
 	@Test
 	public void listConsultations()
 	{
-		
+		try
+		{
+			List<Consultation> consultations = consultationService.listAll();
+			List<DetailConsultation> details = consultations.get(0).getDetailConsultation();
+			
+			assertTrue(details.size() > 0, "Se obtiene automaticamente la relacion de una consulta");
+			LOGGER.info("Se obtiene automaticamente el detalle de una consulta");
+			details.forEach(detail -> LOGGER.info("NRO : " + detail.getId() + " " +detail.getDiagnostic()));
+			
+		} catch (Exception e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@Test

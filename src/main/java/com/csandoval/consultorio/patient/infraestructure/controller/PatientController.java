@@ -1,8 +1,14 @@
 package com.csandoval.consultorio.patient.infraestructure.controller;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,37 +19,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.csandoval.consultorio.patient.application.IPatientService;
 import com.csandoval.consultorio.patient.domain.Patient;
-import com.github.javafaker.Faker;
 
 @Controller
-@RequestMapping("/patient")
+@RequestMapping("/patients")
 public class PatientController
 {
 
 	@Autowired
 	private IPatientService patientService;
-	
-	private Faker faker = new Faker();
 
 	@ModelAttribute("modulo")
 	public String modulo()
 	{
 		return "patient";
 	}
+	
+	@ModelAttribute("menu")
+	public String menu()
+	{
+		return "mantenimiento";
+	}
 
 	@GetMapping("")
 	public String index(ModelMap model) throws Exception
 	{
-		List<Patient> patients = patientService.listAll();
+		List<Patient> patients = patientService.listAll().stream()
+				.sorted(Comparator.comparingInt(Patient::getId))
+				.collect(Collectors.toList());
 		model.put("patients", patients);
-		return "patient/index";
+		return "patients/index";
 	}
 	
 	@GetMapping("/create")
 	public String create(ModelMap model)
 	{
 		model.put("patient", new Patient());
-		return "patient/create";
+		return "patients/form";
 	}
 	
 	@GetMapping("/edit/{id}")
@@ -55,11 +66,11 @@ public class PatientController
 		if(patient!=null)
 		{
 			model.put("patient", patient);
-			page = "/patient/create";
+			page = "/patients/form-update";
 		}
 		else
 		{
-			page = "redirect:/patient";
+			page = "redirect:/patients";
 		}
 		return page;
 	}
@@ -68,37 +79,31 @@ public class PatientController
 	public String store(ModelMap model, Patient entity)
 	{
 		String page = "";
-		entity.setNumberClinicalHistory(faker.code().isbn10());
 		try
 		{
-			Patient patient = patientService.create(entity);
-			model.put("patient", patient);
-			page = "redirect:/patient";
+			patientService.create(entity);
+			page = "redirect:/patients";
 		} catch (Exception e)
 		{
 			model.put("patient", entity);
-			page = "redirect:/patient/create";
+			page = "redirect:/patients/form";
 			e.printStackTrace();
-		}
-
-		
+		}		
 		return page;
 	}
 	
-	@PostMapping("/update")
-	public String update(ModelMap model, Patient entity)
+	@PostMapping("/update/{id}")
+	public String update(ModelMap model, @PathVariable Integer id, Patient entity)
 	{
 		String page = "";
-		
 		try
 		{
-			Patient patient = patientService.edit(entity);
-			model.put("patient", patient);
-			page = "redirect:/patient";
+			patientService.edit(entity);			
+			page = "redirect:/patients";
 		} catch (Exception e)
 		{
 			model.put("patient", entity);
-			page = "redirect:/patient/edit/{" + entity.getId() + "}";
+			page = "redirect:/patients/edit/" + entity.getId() + "";
 			e.printStackTrace();
 		}
 		
@@ -108,7 +113,11 @@ public class PatientController
 	@PostMapping("/delete/{id}")
 	public String delete(ModelMap model, @PathVariable Integer id) throws Exception
 	{
+//		LOGGER.info("Eliminar paciente con ID: " + id);
+//		String response = "Se elimino correctamente"; 
+		//patientService.delete(id);
+//		return ResponseEntity.ok().body("message: " + response);
 		patientService.delete(id);
-		return "patient/index";
+		return "redirect:/patients";
 	}
 }
