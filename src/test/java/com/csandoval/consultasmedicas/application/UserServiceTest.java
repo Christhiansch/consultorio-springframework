@@ -31,7 +31,7 @@ public class UserServiceTest
 	@Test
 	public void createUserAdministrator() throws Exception
 	{
-		String username = faker.name().username();
+		String username = "mitocode.admin";
 		String password = "admin2020";
 		String email = faker.internet().emailAddress();
 		
@@ -52,7 +52,7 @@ public class UserServiceTest
 	@Test
 	public void createUserDoctor() throws Exception
 	{
-		String username = faker.name().username();
+		String username = "mitocode.doctor";
 		String password = "admin2020";
 		String email = faker.internet().emailAddress();
 		
